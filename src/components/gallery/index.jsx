@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import PhotoDetails from "./PhotoDetails";
-const BASE_URL = "https://picsum.photos/v2/list";
 import { FaCircleArrowDown } from "react-icons/fa6";
+import { useFilterContext } from "@/contexts/filter-context";
+import PhotoDetails from "./PhotoDetails";
 
+const BASE_URL = "https://picsum.photos/v2/list";
 export default function Gallery() {
+  const { filter } = useFilterContext();
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [page, setPage] = useState(1);
+
   const { data, isError, isPending } = useQuery({
     queryKey: ["data"],
     queryFn: async () => {
@@ -15,18 +19,21 @@ export default function Gallery() {
     },
   });
 
+  let filteredData = data?.filter((post) => post.author === filter);
+
+  if (filter === "All") {
+    filteredData = data;
+  }
+
   return (
     <main>
-      <div>
-        <h1>Gallery</h1>
-      </div>
-      <div className="relative">
+      <div className="relative ">
         {isPending && <p>Loading...</p>}
         {isError && <p>Error</p>}
-        {data && (
+        {filteredData && (
           <div>
             <div className="grid-layout">
-              {data.slice(0, page * 10).map((post) => (
+              {filteredData.slice(0, page * 10).map((post) => (
                 <div
                   onClick={() => setSelectedImage(post)}
                   key={post.id}
