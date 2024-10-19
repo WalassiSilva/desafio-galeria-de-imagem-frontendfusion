@@ -1,15 +1,11 @@
-import logo from "../../assets/logo.png";
 import Filters from "./Filters";
+import Logo from "./Logo";
 import Search from "./Search";
 export default function Header() {
   return (
-    <header className="p-8 ">
+    <header className="py-8 ">
       <div className=" flex justify-between gap-4">
-        <img
-          src={logo}
-          alt="logo"
-          className="rounded-full border-2 h-20 w-20"
-        />
+        <Logo />
         <Search />
       </div>
       <Filters />

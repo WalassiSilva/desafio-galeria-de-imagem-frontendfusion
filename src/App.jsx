@@ -7,8 +7,10 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <Header />
-        <Gallery />
+       <div className="max-w-7xl mx-auto">
+       <Header />
+       <Gallery />
+       </div>
       </QueryClientProvider>
     </>
   );
