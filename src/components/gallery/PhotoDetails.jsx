@@ -1,39 +1,48 @@
-import { useState } from "react";
-import { FaHeart } from "react-icons/fa";
-
+import { useLikedContext } from "@/contexts/like-context";
+import LikeIcon from "./LikeIcon";
+import { FaCircleXmark } from "react-icons/fa6";
 export default function PhotoDetails({ selectedImage, setSelectedImage }) {
-  const [isLiked, setIsLiked] = useState(false);
+  const { likedItems, addToLiked, removeFromLiked } = useLikedContext();
 
-  const handleLike = () => {
-    setIsLiked(!isLiked);
+  const handleLikeClick = (itemObject) => {
+    const likedItem = likedItems.find((item) => item.id === itemObject.id);
+
+    if (likedItem) {
+      removeFromLiked(itemObject);
+    } else {
+      addToLiked(itemObject);
+    }
   };
-
   return (
     <div
       onClick={() => setSelectedImage(null)}
-      className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center px-2"
+      className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center px-2 z-50"
     >
       <div
         className="bg-white p-8 rounded-lg flex flex-col relative"
         onClick={(e) => e.stopPropagation()}
       >
-        <span className="absolute top-10 right-10 z-50 cursor-pointer" onClick={handleLike}>
-          <FaHeart
-            size={40}
-            className={`${
-              isLiked ? "text-red-600" : "text-white"
-            } transition duration-300 ease-in-out hover:scale-110`}
-          />
-        </span>
+        <LikeIcon
+          isLiked={likedItems.some((item) => item.id === selectedImage.id)}
+          handleClick={() => handleLikeClick(selectedImage)}
+        />
+        <button
+          onClick={() => setSelectedImage(null)}
+          className="absolute top-1 right-1 text-zinc-600 hover:text-zinc-900"
+        >
+          <FaCircleXmark size={32} />
+        </button>
         <img
           src={selectedImage?.download_url}
           alt={selectedImage?.author}
-          className="rounded-lg object-contain h-96"
+          className="rounded-lg object-contain h-[500px] "
         />
         <div>
-          <h3 className="text-lg font-bold text-zinc-900">Author: {selectedImage?.author}</h3>
+          <h3 className="text-2xl font-bold text-zinc-900 mt-4">
+            Author: {selectedImage?.author}
+          </h3>
           <h4 className="font-semibold text-zinc-600">
-            Dimensions: {selectedImage?.width}x{selectedImage?.height}
+            Dimensions: {selectedImage?.width} x {selectedImage?.height}
           </h4>
         </div>
       </div>

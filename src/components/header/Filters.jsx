@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-import { Button } from "../ui/button";
+
 import { useFilterContext } from "@/contexts/filter-context";
+import FilterButton from "./FilterButton";
 
 export default function Filters() {
   const { setFilter } = useFilterContext();
@@ -28,21 +29,25 @@ export default function Filters() {
   return (
     <>
       <ul className="flex justify-center gap-10 mt-4 ">
-        <Button name="All" onClick={(e) => handleFilter(e)}>All</Button>
-        <Button name="favorites" onClick={(e) => handleFilter(e)}>My Favorites</Button>
+        <FilterButton name="All" onClick={(e) => handleFilter(e)}>
+          All
+        </FilterButton>
+        <FilterButton name="liked" onClick={(e) => handleFilter(e)}>
+          My Favorites
+        </FilterButton>
 
-        <Button onClick={handleAuthorIsOpen}>
+        <FilterButton onClick={handleAuthorIsOpen}>
           <span className="mr-2">Authors</span>
           {!isAuthorOpen ? <FaChevronDown /> : <FaChevronUp />}
-        </Button>
+        </FilterButton>
       </ul>
       <ul
         className={`${
           isAuthorOpen ? "opacity-100" : "opacity-0 none -z-10"
-        } grid grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-4 mt-4 transition duration-300 ease-in-out`}
+        } flex flex-wrap gap-4 mt-4 transition duration-300 ease-in-out`}
       >
         {authors.map((author) => (
-          <Button
+          <FilterButton
             key={author}
             name={author}
             variant="outline"
@@ -50,7 +55,7 @@ export default function Filters() {
             onClick={(e) => handleFilter(e)}
           >
             {author}
-          </Button>
+          </FilterButton>
         ))}
       </ul>
     </>
