@@ -77,7 +77,11 @@ export default function Gallery() {
         {filteredData && (
           <div className="flex justify-center md:block">
             <div className="grid-layout">
-              {filteredData.length === 0 && <p>No results found</p>}
+              {filteredData.length === 0 && <>
+                <h2 className="text-2xl font-bold text-white text-center">Empty List</h2>
+                <Skeleton />
+              </>
+              }
               {filteredData.slice(0, page * 10).map((post) => (
                 <div
                   onClick={() => setSelectedImage(post)}
