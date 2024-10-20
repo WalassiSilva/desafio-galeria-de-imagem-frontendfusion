@@ -33,7 +33,7 @@ export default function Filters() {
           All
         </FilterButton>
         <FilterButton name="liked" onClick={(e) => handleFilter(e)}>
-          My Favorites
+          Favorites
         </FilterButton>
 
         <FilterButton onClick={handleAuthorIsOpen}>
@@ -43,8 +43,8 @@ export default function Filters() {
       </ul>
       <ul
         className={`${
-          isAuthorOpen ? "opacity-100" : "opacity-0 none -z-10"
-        } flex flex-wrap gap-4 mt-4 transition duration-300 ease-in-out`}
+          isAuthorOpen ? "opacity-100" : "opacity-0 none -z-10 h-0"
+        } flex flex-wrap gap-4 mt-4 transition duration-200 ease-in-out`}
       >
         {authors.map((author) => (
           <FilterButton
