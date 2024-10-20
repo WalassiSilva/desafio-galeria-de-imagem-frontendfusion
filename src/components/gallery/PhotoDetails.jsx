@@ -35,7 +35,7 @@ export default function PhotoDetails({ selectedImage, setSelectedImage }) {
         <img
           src={selectedImage?.download_url}
           alt={selectedImage?.author}
-          className="rounded-lg object-contain h-[500px] "
+          className="rounded-lg object-contain "
         />
         <div>
           <h3 className="text-2xl font-bold text-zinc-900 mt-4">

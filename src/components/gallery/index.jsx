@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { FaCircleArrowDown } from "react-icons/fa6";
 import { useFilterContext } from "@/contexts/filter-context";
 import PhotoDetails from "./PhotoDetails";
 import LikeIcon from "./LikeIcon";
 import { useLikedContext } from "@/contexts/like-context";
+import Skeleton from "./Skeleton";
 
 const BASE_URL = "https://picsum.photos/v2/list";
 export default function Gallery() {
@@ -21,6 +22,8 @@ export default function Gallery() {
       return await response.json();
     },
   });
+
+  const [showComponent, setShowComponent] = useState(false);
 
   let filteredData = data?.filter((post) => post.author === filter);
 
@@ -40,14 +43,41 @@ export default function Gallery() {
     }
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowComponent(true);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!showComponent) {
+    return (
+      <div className="flex justify-center md:block">
+        <div className="grid-layout">
+          <Skeleton qtde={10} />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <main>
       <div className="relative ">
-        {isPending && <p>Loading...</p>}
         {isError && <p>Error</p>}
+        {isPending && (
+          <>
+            <div className="flex justify-center md:block">
+              <div className="grid-layout">
+                <Skeleton qtde={10} />
+              </div>
+            </div>
+          </>
+        )}
         {filteredData && (
           <div className="flex justify-center md:block">
             <div className="grid-layout">
+              {filteredData.length === 0 && <p>No results found</p>}
               {filteredData.slice(0, page * 10).map((post) => (
                 <div
                   onClick={() => setSelectedImage(post)}
@@ -74,10 +104,10 @@ export default function Gallery() {
         )}
 
         <button
-          onClick={() => setPage((old) => old + 1)}
-          disabled={page === 3}
+          onClick={() => setPage((prev) => prev + 1)}
+          disabled={page * 10 >= filteredData.length}
           className={`animate-bounce absolute bottom-1 left-1/2 transform -translate-x-1/2 -mx-[20px] ${
-            page === 3 ? "hidden" : ""
+            page * 10 >= filteredData.length ? "hidden" : ""
           }`}
         >
           <FaCircleArrowDown size={40} />
