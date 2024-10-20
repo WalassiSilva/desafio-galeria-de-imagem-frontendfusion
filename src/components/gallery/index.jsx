@@ -101,6 +101,7 @@ export default function Gallery() {
                     <img
                       src={post.download_url}
                       alt={post.author}
+                      loading="lazy"
                       className="rounded-lg w-[300px] h-[200px]"
                     />
                   </div>
