@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { FaCircleArrowDown } from "react-icons/fa6";
 import { useFilterContext } from "@/contexts/filter-context";
@@ -23,8 +23,6 @@ export default function Gallery() {
     },
   });
 
-  const [showComponent, setShowComponent] = useState(false);
-
   let filteredData = data?.filter((post) => post.author === filter);
 
   if (filter === "liked") {
@@ -42,8 +40,6 @@ export default function Gallery() {
       addToLiked(itemObject);
     }
   };
-
-
 
   return (
     <main>

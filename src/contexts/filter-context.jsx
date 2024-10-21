@@ -12,9 +12,9 @@ export default function FilterContextProvider({ children }) {
   );
 }
 
- export function useFilterContext() {
+export function useFilterContext() {
   const context = useContext(FilterContext);
-  if (!context ) {
+  if (!context) {
     throw new Error(
       "useFilterContext must be used within a FilterContextProvider"
     );

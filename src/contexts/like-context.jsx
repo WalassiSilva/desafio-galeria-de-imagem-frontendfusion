@@ -26,11 +26,13 @@ export default function LikeContextProvider({ children }) {
   }, [likedItems]);
 
   const addToLiked = (item) => {
-    setLikedItems((prevItems) => [...prevItems, item]);    
+    setLikedItems((prevItems) => [...prevItems, item]);
   };
 
   const removeFromLiked = (itemObject) => {
-    setLikedItems((prevItems) => prevItems.filter((item) => item.id !== itemObject.id));
+    setLikedItems((prevItems) =>
+      prevItems.filter((item) => item.id !== itemObject.id)
+    );
   };
 
   return (
