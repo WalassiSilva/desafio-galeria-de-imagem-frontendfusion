@@ -43,23 +43,7 @@ export default function Gallery() {
     }
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowComponent(true);
-    }, 2000);
 
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (!showComponent) {
-    return (
-      <div className="flex justify-center md:block">
-        <div className="grid-layout">
-          <Skeleton qtde={10} />
-        </div>
-      </div>
-    );
-  }
 
   return (
     <main>
@@ -74,7 +58,7 @@ export default function Gallery() {
             </div>
           </>
         )}
-        {filteredData.length === 0 && (
+        {filteredData?.length === 0 && (
           <div className="flex justify-center items-center gap-20 flex-col">
             <h2 className="text-2xl font-bold text-white text-center">
               Empty List
@@ -113,9 +97,9 @@ export default function Gallery() {
 
         <button
           onClick={() => setPage((prev) => prev + 1)}
-          disabled={page * 10 >= filteredData.length}
+          disabled={page * 10 >= filteredData?.length}
           className={`animate-bounce absolute bottom-1 left-1/2 transform -translate-x-1/2 -mx-[20px] ${
-            page * 10 >= filteredData.length ? "hidden" : ""
+            page * 10 >= filteredData?.length ? "hidden" : ""
           }`}
         >
           <FaCircleArrowDown size={40} />
