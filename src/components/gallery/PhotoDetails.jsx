@@ -19,7 +19,7 @@ export default function PhotoDetails({ selectedImage, setSelectedImage }) {
       className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center px-2 z-50"
     >
       <div
-        className="bg-white p-8 rounded-lg flex flex-col relative max-h-[90vh]"
+        className="bg-white p-8 rounded-lg flex flex-col relative max-h-[90dvh]"
         onClick={(e) => e.stopPropagation()}
       >
         <LikeIcon
