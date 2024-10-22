@@ -23,7 +23,7 @@ export default function Gallery() {
     },
   });
 
-  let filteredData = data?.filter((post) => post.author === filter);
+  let filteredData = data?.filter((item) => item.author === filter);
 
   if (filter === "liked") {
     filteredData = likedItems;
@@ -65,22 +65,22 @@ export default function Gallery() {
         {filteredData && (
           <div className="flex justify-center md:block">
             <div className="grid-layout">
-              {filteredData.slice(0, page * 10).map((post) => (
+              {filteredData.slice(0, page * 10).map((item) => (
                 <div
-                  onClick={() => setSelectedImage(post)}
-                  key={post.id}
+                  onClick={() => setSelectedImage(item)}
+                  key={item.id}
                   className="cursor-pointer w-[300px] h-[200px] rounded-lg"
                 >
                   <div className="relative">
                     <span onClick={(e) => e.stopPropagation()}>
                       <LikeIcon
-                        isLiked={likedItems.some((item) => item.id === post.id)}
-                        handleClick={() => handleLikeClick(post)}
+                        isLiked={likedItems.some((item) => item.id === item.id)}
+                        handleClick={() => handleLikeClick(item)}
                       />
                     </span>
                     <img
-                      src={post.download_url}
-                      alt={post.author}
+                      src={item.download_url}
+                      alt={item.author}
                       loading="lazy"
                       className="rounded-lg w-[300px] h-[200px]"
                     />
