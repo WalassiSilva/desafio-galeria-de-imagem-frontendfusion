@@ -74,7 +74,7 @@ export default function Gallery() {
                   <div className="relative">
                     <span onClick={(e) => e.stopPropagation()}>
                       <LikeIcon
-                        isLiked={likedItems.some((item) => item.id === item.id)}
+                        isLiked={likedItems.some((itemObject) => itemObject.id === item.id)}
                         handleClick={() => handleLikeClick(item)}
                       />
                     </span>
